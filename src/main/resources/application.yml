@@ -1,0 +1,21 @@
+#서버 포트 설정
+sever:
+  port: 8080
+
+
+#DB 접속 정보
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3360/db_spring_boot?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: user_spring_boot
+    password: 1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  #타임리프 캐시 무효화
+  thymeleaf:
+    cache: false

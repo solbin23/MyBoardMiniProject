@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>findAll.html</h2>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>비밀번호</th>
+        <th>작성일자</th>
+        <th>내용</th>
+        <th>조회수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${board.id}"></td>
+        <td th:text="${board.boardWriter}"></td>
+        <td th:text="${board.boardTitle}"></td>
+        <td th:text="${board.boardPassword}"></td>
+        <td th:text="${board.createdTime}"></td>
+        <td th:text="${board.boardContents}"></td>
+        <td th:text="${board.boardHits}"></td>
+    </tr>
+    </tbody>
+</table>
+<button onclick="updateReq()">수정</button>
+<button onclick="deleteReq()">삭제</button>
+<div id="pw">
+
+</div>
+<script th:inline="javascript">
+        const updateReq = () => {
+            let inputTag = "비밀번호 입력 : <input type=\"text\" id=\"password\">\n" +
+                "        <button onclick=\"pwCheck1()\">확인</button>";
+            document.getElementById("pw").innerHTML = inputTag;
+        }
+
+        const deleteReq = () => {
+            let inputTag = "비밀번호 입력 : <input type=\"text\" id=\"password\">\n" +
+                "        <button onclick=\"pwCheck2()\">확인</button>";
+            document.getElementById("pw").innerHTML = inputTag;
+        }
+        const pwCheck1 = () => {
+            console.log("pwCheck");
+            const pwConfirm = document.getElementById("password").value;
+            console.log(pwConfirm)
+            const pw = [[${board.boardPassword}]];<!-- 디비에 있는 passsword를 가져온다-->
+            const id = [[${board.id}]];
+            if (pw == pwConfirm) {
+                alert("같습니다.");
+                //수정화면 요청
+                location.href = "/board/update/"+id;
+            }else{
+                alert("틀립니다.");
+            }
+        }
+
+        const pwCheck2 = () => {
+            console.log("pwCheck");
+            const pwConfirm = document.getElementById("password").value;
+            console.log(pwConfirm)
+            const pw = [[${board.boardPassword}]];<!-- 디비에 있는 passsword를 가져온다-->
+            const id = [[${board.id}]];
+            if (pw == pwConfirm) {
+                alert("같습니다.");
+                //삭제 요청
+                location.href = "/board/delete/"+id;
+            }else{
+                alert("틀립니다.");
+            }
+        }
+</script>
+</body>
+</html>
