@@ -30,13 +30,36 @@
     </tr>
     </tbody>
 </table>
-<button onclick="updateReq()">수정</button>
-<button onclick="deleteReq()">삭제</button>
+<!--<button onclick="updateReq()">수정</button>
+<button onclick="deleteReq()">삭제</button>-->
+<button onclick="req(1)">수정</button>
+<button onclick="req(2)">삭제</button>
 <div id="pw">
 
 </div>
 <script th:inline="javascript">
-        const updateReq = () => {
+    const req = (num) => {
+            let inputTag = "비밀번호 입력 : <input type=\"text\" id=\"password\">\n" +
+                "        <button onclick=\"pwCheck("+num+")\">확인</button>"; //pwCheck 함수를 호출할 때 num을 같이 넘겨준다! 어떤 num ? => req(1) 또는 req(2)
+            document.getElementById("pw").innerHTML = inputTag;
+        }
+    const pwCheck = (num) => { //num이라는 매개변수를 받아준다!
+        console.log("pwCheck" ,num); //매개변수가 잘 넘어오나?
+        const pwConfirm = document.getElementById("password").value;
+        console.log(pwConfirm);
+        const pw = [[${board.boardPassword}]];<!-- 디비에 있는 passsword를 가져온다-->
+        const id = [[${board.id}]];
+        if (pw == pwConfirm) {
+            if(num == 1){
+                location.href = "/board/update/"+id;
+            }else{
+                location.href = "/board/delete/"+id;
+            }
+        }else{
+            alert("비밀번호 확인을 해주세요.");
+        }
+    }
+        /*const updateReq = () => {
             let inputTag = "비밀번호 입력 : <input type=\"text\" id=\"password\">\n" +
                 "        <button onclick=\"pwCheck1()\">확인</button>";
             document.getElementById("pw").innerHTML = inputTag;
@@ -75,7 +98,7 @@
             }else{
                 alert("틀립니다.");
             }
-        }
+        }*/
 </script>
 </body>
 </html>
